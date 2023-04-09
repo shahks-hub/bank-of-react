@@ -18,12 +18,12 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 1234567.89,
+      accountBalance: 0.00,
       creditList: [],
       debitList: [],
       currentUser: {
-        userName: 'Joe Smith',
-        memberSince: '11/22/99',
+        userName: 'A278+π',
+        memberSince: '4/14/23',
       }
     };
   }
