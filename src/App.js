@@ -37,7 +37,7 @@ class App extends Component {
 
 
   addDebit = (info) => {
-    let debitList = [...this.state.debits]
+    let debits = [...this.state.debitList]
     let newDebitSubmission = {
       "id" : info.id,
       "amount" : info.amount,
@@ -45,8 +45,8 @@ class App extends Component {
       "date" : info.date,
     }
     
-    debitList.push(newDebitSubmission)
-    this.setState({debits: debitList})
+    debits.push(newDebitSubmission)
+    this.setState({debitList: debits})
 
   }
   // Create Routes and React elements to be rendered using React components
@@ -58,7 +58,7 @@ class App extends Component {
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
     const CreditsComponent = () => (<Credits credits={this.state.creditList} />) 
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
+    const DebitsComponent = () => (<Debits addDebit= {this.addDebit} debits={this.state.debitList} />) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
