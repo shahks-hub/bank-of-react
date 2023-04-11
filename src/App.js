@@ -41,8 +41,8 @@ class App extends Component {
     let newDebitSubmission = {
       "id" : info.id,
       "amount" : info.amount,
+      "description" : info.description,
       "date" : info.date,
-      "description" : info.description
     }
     
     let updatedBalance = Number(this.state.accountBalance) - Number(info.amount);

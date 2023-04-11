@@ -8,6 +8,17 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
 
 class DebitExpense extends Component{
+  constructor(){
+    super()
+    this.state = {
+      debit:{
+        id: "",
+        amount: 0,
+        description: "",
+        date: "",
+      },
+    }
+  }
   // Create the list of Debit items
   debitsView = () => {
     const { debits } = this.props;
