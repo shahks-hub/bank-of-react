@@ -35,6 +35,21 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+
+  addDebit = (info) => {
+    let debitList = [...this.state.debits]
+    let newDebitSubmission = {
+      "id" : info.id,
+      "amount" : info.amount,
+      "date" : info.date,
+      "description" : info.description
+    }
+    
+    let updatedBalance = Number(this.state.accountBalance) - Number(info.amount);
+    debitList.push(newDebitSubmission)
+    this.setState({debits: debitList, accountBalance: updatedBalance})
+
+  }
   // Create Routes and React elements to be rendered using React components
   render() {  
     // Create React elements and pass input props to components
