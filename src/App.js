@@ -45,9 +45,8 @@ class App extends Component {
       "date" : info.date,
     }
     
-    let updatedBalance = Number(this.state.accountBalance) - Number(info.amount);
     debitList.push(newDebitSubmission)
-    this.setState({debits: debitList, accountBalance: updatedBalance})
+    this.setState({debits: debitList})
 
   }
   // Create Routes and React elements to be rendered using React components
@@ -59,7 +58,7 @@ class App extends Component {
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
     const CreditsComponent = () => (<Credits credits={this.state.creditList} />) 
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
+    const DebitsComponent = () => (<Debits addDebit = {this.addDebit} debits={this.state.debitList} />) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
