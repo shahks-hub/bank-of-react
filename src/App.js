@@ -43,12 +43,9 @@ class App extends Component {
       "description" : info.description,
       "date" : info.date,
     }
-    
     debits.push(newDebitSubmission)
-
     let newBalance = this.state.accountBalance - info.amount
     this.setState({debitList: debits, accountBalance: newBalance})
-
   }
   // Create Routes and React elements to be rendered using React components
   render() {  
