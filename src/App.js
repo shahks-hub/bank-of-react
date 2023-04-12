@@ -39,7 +39,6 @@ class App extends Component {
   addDebit = (info) => {
     let debits = [...this.state.debitList]
     let newDebitSubmission = {
-      "id" : info.id,
       "amount" : info.amount,
       "description" : info.description,
       "date" : info.date,

@@ -12,7 +12,6 @@ class DebitExpense extends Component{
     super()
     this.state = {
       debit:{
-        id: "",
         amount: 0.00,
         description: "",
         date: "",
