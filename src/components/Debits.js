@@ -8,12 +8,12 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
 
 class DebitExpense extends Component{
-  constructor(props) {  // Create and initialize state,
-    super(props)
+  constructor() {  // Create and initialize state,
+    super()
     this.state = {
       debit:{
         id: "",
-        amount: 0,
+        amount: 0.00,
         description: "",
         date: "",
       }
@@ -30,6 +30,20 @@ class DebitExpense extends Component{
     });
   }
 
+  
+    // When new debit input, capture the new input value and update state
+    handleChange = (e) => {
+      const updatedDebit = {...this.state.debit};  // Create an object for state
+      updatedDebit[e.target.name] = e.target.value;  // add to the new submission
+      this.setState({debit: updatedDebit})  // Update state with object values
+    }
+  
+    // When user clicked submit button, store debit data
+    handleSubmit = (e) => {
+      e.preventDefault()
+      this.props.addDebit(this.state.debit)  // Update state in the top-level component (App.js)
+    }
+
 
 
 
@@ -42,11 +56,11 @@ class DebitExpense extends Component{
 
         {this.debitsView()}
 
-        <form onSubmit={this.props.addDebit}>
-          <input type="text" name="description" placeholder='Description' style={{width:"350px"}} />
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" name="description" placeholder='Description' style={{width:"350px"}} onChange={this.handleChange}/>
           <br/>
-          <input type="number" name="amount" placeholder='Amount in $' />        
-          <input type="date" name="date" placeholder='Date' />
+          <input type="number" name="amount" placeholder='Amount in $' onChange={this.handleChange}/>        
+          <input type="date" name="date" placeholder='Date' onChange={this.handleChange}/>
           <button type="submit">Add Debit</button>
         </form>
         <br/>
