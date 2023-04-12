@@ -46,7 +46,9 @@ class App extends Component {
     }
     
     debits.push(newDebitSubmission)
-    this.setState({debitList: debits})
+
+    let newBalance = Number(this.state.accountBalance) - Number(info.amount)
+    this.setState({debitList: debits, accountBalance: newBalance})
 
   }
   // Create Routes and React elements to be rendered using React components
