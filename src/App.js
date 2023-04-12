@@ -46,7 +46,7 @@ class App extends Component {
     
     debits.push(newDebitSubmission)
 
-    let newBalance = Number(this.state.accountBalance) - Number(info.amount)
+    let newBalance = this.state.accountBalance - info.amount
     this.setState({debitList: debits, accountBalance: newBalance})
 
   }
