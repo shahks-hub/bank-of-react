@@ -45,8 +45,7 @@ class App extends Component {
       "date" : info.date,
     }
     debits.push(newDebitSubmission)
-    let newBalance = this.state.accountBalance - info.amount
-    newBalance = Math.round(newBalance*100)/100
+    let newBalance = (this.state.accountBalance - info.amount).toFixed(2)
     this.setState({debitList: debits, accountBalance: newBalance})
   }
 
@@ -60,11 +59,9 @@ class App extends Component {
       let totalDebit = 0
       let totalCredit = 0;
       debit_list.forEach((debt) => {totalDebit += debt.amount})
+      let account_balance = (totalCredit - totalDebit).toFixed(2)
 
-      let account_balance = totalCredit - totalDebit
-      account_balance = Math.round(account_balance*100)/100
       this.setState({debitList:debit_list, accountBalance: account_balance})
-
     }catch (error) {  // Print out errors at console when there is an error response
       if (error.response) {
         // The request was made, and the server responded with error message and status code.

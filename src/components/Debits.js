@@ -8,8 +8,8 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
 
 class DebitExpense extends Component{
-  constructor() {  // Create and initialize state,
-    super()
+  constructor(props) {  // Create and initialize state,
+    super(props)
     this.state = {
       debit:{
         amount: 0.00,
@@ -19,7 +19,6 @@ class DebitExpense extends Component{
     };
   }
 
-  
   // Create the list of Debit items
   debitsView = () => {
     const { debits } = this.props;
@@ -29,12 +28,11 @@ class DebitExpense extends Component{
     });
   }
 
-  
   // When new debit input, capture the new input value and update state
   handleChange = (e) => {
     const updatedDebit = {...this.state.debit};  // Create an object for state
     updatedDebit[e.target.name] = e.target.value;  // add the new submission
-    updatedDebit['date'] = (new Date()).toISOString() // set submission date to current date
+    updatedDebit['date'] = new Date().toISOString()// set submission date to current date
     this.setState({debit: updatedDebit})  // Update state with object values
   }
 
@@ -44,7 +42,6 @@ class DebitExpense extends Component{
     this.props.addDebit(this.state.debit)  // Update state in the top-level component (App.js)
   }
 
-
   // Render the list of Debit items and a form to input new Debit item
   render(){
     return (
@@ -52,8 +49,7 @@ class DebitExpense extends Component{
         <h1>Debits</h1>
 
         {this.debitsView()}
-
-        <h3>
+        <h3> 
         Balance: {this.props.accountBalance}
         </h3>
 
