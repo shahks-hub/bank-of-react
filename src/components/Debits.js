@@ -25,7 +25,8 @@ const Debits = (props) => {
       <form onSubmit={props.addDebit}>
         <input type="text" name="description" placeholder='Description' style={{width:"350px"}} />
         <br/>
-        <input type="number" name="amount" placeholder='Amount in $' />        
+        <input type="any" pattern="^\d+(\.\d{1,2})?$" name="amount" placeholder='Amount in $'
+        title="Please enter the $ amount up to two decimal places." />        
         <input type="date" name="date" placeholder='Date' />
         <button type="submit">Add Debit</button>
       </form>
