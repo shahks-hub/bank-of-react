@@ -6,6 +6,7 @@ It contains the top-level state.
 ==================================================*/
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import axios from 'axios';
 
 // Import other components
 import Home from './components/Home';
@@ -45,7 +46,34 @@ class App extends Component {
     }
     debits.push(newDebitSubmission)
     let newBalance = this.state.accountBalance - info.amount
+    newBalance = Math.round(newBalance*100)/100
     this.setState({debitList: debits, accountBalance: newBalance})
+  }
+
+  async componentDidMount(){
+    let debit_api_endpoint = "https://johnnylaicode.github.io/api/debits.json"
+    let credit_api_endpoint = "https://johnnylaicode.github.io/api/credits.json"
+    try {
+      let debit_list = await axios.get(debit_api_endpoint)
+      debit_list = debit_list.data
+      //Account Balance = Total Credit - Total Debit
+      let totalDebit = 0
+      let totalCredit = 0;
+      debit_list.forEach((debt) => {totalDebit += debt.amount})
+
+      let account_balance = totalCredit - totalDebit
+      account_balance = Math.round(account_balance*100)/100
+      this.setState({debitList:debit_list, accountBalance: account_balance})
+
+    }catch (error) {  // Print out errors at console when there is an error response
+      if (error.response) {
+        // The request was made, and the server responded with error message and status code.
+        console.log(error.response.data);  // Print out error message (e.g., Not Found)
+        console.log(error.response.status);  // Print out error status code (e.g., 404)
+      }  
+    }
+
+    
   }
   // Create Routes and React elements to be rendered using React components
   render() {  
