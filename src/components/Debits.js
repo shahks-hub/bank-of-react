@@ -52,18 +52,17 @@ class DebitExpense extends Component{
 
         {this.debitsView()}
 
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" name="description" placeholder='Description' style={{width:"350px"}} onChange={this.handleChange}/>
-          <br/>
-          <input type="any" name="amount" placeholder='Amount in $' onChange={this.handleChange}/>        
-          <input type="date" name="date" placeholder='Date' onChange={this.handleChange}/>
-          <button type="submit">Add Debit</button>
-        </form>
+      <form onSubmit={props.addDebit}>
+        <input type="text" name="description" placeholder='Description' style={{width:"350px"}} />
         <br/>
-        <Link to="/">Return to Home</Link>
-      </div>
-    );
-  }
+        <input type="number" name="amount" placeholder='Amount in $' />        
+        <input type="date" name="date" placeholder='Date' />
+        <button type="submit">Add Debit</button>
+      </form>
+      <br/>
+      <Link to="/">Return to Home</Link>
+    </div>
+  );
 }
 
 export default DebitExpense;
