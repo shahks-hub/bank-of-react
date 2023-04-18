@@ -76,9 +76,12 @@ class App extends Component {
     try {
       let debit_list = await axios.get(debit_api_endpoint)
       debit_list = debit_list.data
+      let credit_list = await axios.get(credit_api_endpoint)
+      credit_list = credit_list.data
       //Account Balance = Total Credit - Total Debit
       let totalDebit = 0
       let totalCredit = 0;
+      credit_list.forEach((credit) => {totalCredit += credit.amount})
       debit_list.forEach((debt) => {totalDebit += debt.amount})
       let account_balance = (totalCredit - totalDebit).toFixed(2)
 
@@ -98,7 +101,7 @@ class App extends Component {
     // Create Routes and React elements to be rendered using React components
     // Create React elements and pass input props to components
     const HomeComponent = () => (
-      <Home accountBalance={this.state.creditList - this.state.debitList} />
+      <Home accountBalance={this.state.accountBalance} />
     );
     const UserProfileComponent = () => (
       <UserProfile
