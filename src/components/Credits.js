@@ -4,35 +4,70 @@ src/components/Credits.js
 The Credits component contains information for Credits page view.
 Note: You need to work on this file for the Assignment.
 ==================================================*/
-import {Link} from 'react-router-dom';
-
-const Credits = (props) => {
-   // Create the list of Credit items
-   let creditsView = () => {
-    const { credits } = props;
-    return credits.map((credit) => {  // Extract "id", "amount", "description" and "date" properties of each credits JSON array element
-      let date = credit.date.slice(0,10);
-      return <li key={credit.id}>{credit.amount} {credit.description} {date}</li>
-    });
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+class Credit extends Component {
+  constructor() {
+    super();
+    this.state = {
+      credit: {
+        id: "",
+        amount: 0.0,
+        description: "",
+        date: "",
+      },
+    };
   }
-  // Render the list of Credititems and a form to input new Credit item
-  return (
-    <div>
-      <h1>Credits</h1>
+  // Create the list of Credit items
+  creditsView = () => {
+    const { credit } = this.props;
+    return credit.map((cred) => {
+      // Extract "id", "amount", "description" and "date" properties of each debits JSON array element
+      let date = cred.date.slice(0, 10);
+      return (
+        <li key={cred.id}>
+          {cred.amount} {cred.description} {date}
+        </li>
+      );
+    });
+  };
+  // When new debit input, capture the new input value and update state
+  handleChange = (e) => {
+    const updatedCredit = { ...this.state.credit }; // Create an object for state
+    updatedCredit[e.target.name] = e.target.value; // add the new submission
+    this.setState({ credit: updatedCredit }); // Update state with object values
+  };
 
-      {creditsView()}
+  // When user clicked submit button, store debit data
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.addCredits(this.state.credit); // Update state in the top-level component (App.js)
+  };
+  render() {
+    return (
+      <div>
+        <h1>Credits</h1>
+        {this.creditsView()}
 
-      <form onSubmit={props.addCredit}>
-        <input type="text" name="description" placeholder='Description' style={{width:"350px"}} />
-        <br/>
-        <input type="number" name="amount" placeholder='Amount in $' />        
-        <input type="date" name="date" placeholder='Date' />
-        <button type="submit">Add Credit</button>
-      </form>
-      <br/>
-      <Link to="/">Return to Home</Link>
-    </div>
-  );
+        <form onSubmit={this.props.addCredits}>
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            style={{ width: "350px" }}
+            onChange={this.handleChange}
+          />
+          <br />
+          <input type="number" name="amount" placeholder="Amount in $" />
+          <input type="date" name="date" placeholder="Date" />
+          <button type="submit" onClick={this.handleSubmit}>
+            Add Credit
+          </button>
+        </form>
+        <br />
+        <Link to="/">Return to Home</Link>
+      </div>
+    );
+  }
 }
-
-export default Credits;
+export default Credit;
