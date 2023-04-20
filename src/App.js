@@ -6,6 +6,7 @@ It contains the top-level state.
 ==================================================*/
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import axios from "axios";
 
 // Import other components
 import Home from "./components/Home";
@@ -13,7 +14,6 @@ import UserProfile from "./components/UserProfile";
 import LogIn from "./components/Login";
 import Credits from "./components/Credits";
 import Debits from "./components/Debits";
-import axios from "axios";
 
 class App extends Component {
   constructor() {
@@ -28,35 +28,6 @@ class App extends Component {
         memberSince: "4/14/23",
       },
     };
-  }
-  async componentDidMount() {
-    let debit_api_endpoint = "https://johnnylaicode.github.io/api/debits.json";
-    let credit_api_endpoint =
-      "https://johnnylaicode.github.io/api/credits.json";
-    try {
-      let debit_list = await axios.get(debit_api_endpoint);
-      let credit_list = await axios.get(credit_api_endpoint);
-      debit_list = debit_list.data;
-      credit_list = credit_list.data;
-      //Account Balance = Total Credit - Total Debit
-      let totalDebit = 0;
-      let totalCredit = 0;
-      debit_list.forEach((debt) => {
-        totalDebit += debt.amount;
-      });
-
-      let account_balance = totalCredit - totalDebit;
-      account_balance = Math.round(account_balance * 100) / 100;
-      this.setState({ debitList: debit_list, accountBalance: account_balance });
-      this.setState({ creditList: credit_list });
-    } catch (error) {
-      // Print out errors at console when there is an error response
-      if (error.response) {
-        // The request was made, and the server responded with error message and status code.
-        console.log(error.response.data); // Print out error message (e.g., Not Found)
-        console.log(error.response.status); // Print out error status code (e.g., 404)
-      }
-    }
   }
   addCredits = (info) => {
     let credits = [...this.state.creditList];
@@ -77,6 +48,50 @@ class App extends Component {
     this.setState({ currentUser: newUser });
   };
 
+  addDebit = (info) => {
+    let debits = [...this.state.debitList];
+    let newDebitSubmission = {
+      amount: info.amount,
+      description: info.description,
+      date: info.date,
+    };
+    debits.push(newDebitSubmission);
+    let newBalance = (this.state.accountBalance - info.amount).toFixed(2);
+    this.setState({ debitList: debits, accountBalance: newBalance });
+  };
+
+  async componentDidMount() {
+    let debit_api_endpoint = "https://johnnylaicode.github.io/api/debits.json";
+    let credit_api_endpoint =
+      "https://johnnylaicode.github.io/api/credits.json";
+    try {
+      let debit_list = await axios.get(debit_api_endpoint);
+      debit_list = debit_list.data;
+      let credit_list = await axios.get(credit_api_endpoint);
+      credit_list = credit_list.data;
+      //Account Balance = Total Credit - Total Debit
+      let totalDebit = 0;
+      let totalCredit = 0;
+      credit_list.forEach((credit) => {
+        totalCredit += credit.amount;
+      });
+      debit_list.forEach((debt) => {
+        totalDebit += debt.amount;
+      });
+      let account_balance = (totalCredit - totalDebit).toFixed(2);
+
+      this.setState({ debitList: debit_list, accountBalance: account_balance });
+      this.setState({ creditList: credit_list });
+    } catch (error) {
+      // Print out errors at console when there is an error response
+      if (error.response) {
+        // The request was made, and the server responded with error message and status code.
+        console.log(error.response.data); // Print out error message (e.g., Not Found)
+        console.log(error.response.status); // Print out error status code (e.g., 404)
+      }
+    }
+  }
+  // Create Routes and React elements to be rendered using React components
   render() {
     // Create Routes and React elements to be rendered using React components
     // Create React elements and pass input props to components
@@ -95,7 +110,9 @@ class App extends Component {
     const CreditsComponent = () => (
       <Credits credits={this.state.creditList} addCredits={this.addCredits} />
     );
-    const DebitsComponent = () => <Debits debits={this.state.debitList} />;
+    const DebitsComponent = () => (
+      <Debits addDebit={this.addDebit} debits={this.state.debitList} />
+    );
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (

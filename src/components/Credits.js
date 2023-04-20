@@ -60,9 +60,11 @@ class Credit extends Component {
           />
           <br />
           <input
-            type="number"
+            type="any"
+            pattern="^\d+(\.\d{1,2})?$"
             name="amount"
             placeholder="Amount in $"
+            title="Please enter the $ amount up to two decimal places."
             onChange={this.handleChange}
           />
           <input
