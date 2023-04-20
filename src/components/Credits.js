@@ -20,8 +20,8 @@ class Credit extends Component {
   }
   // Create the list of Credit items
   creditsView = () => {
-    const { credit } = this.props;
-    return credit.map((cred) => {
+    const { credits } = this.props;
+    return credits.map((cred) => {
       // Extract "id", "amount", "description" and "date" properties of each debits JSON array element
       let date = cred.date.slice(0, 10);
       return (
@@ -33,15 +33,16 @@ class Credit extends Component {
   };
   // When new debit input, capture the new input value and update state
   handleChange = (e) => {
-    const updatedCredit = { ...this.state.credit }; // Create an object for state
-    updatedCredit[e.target.name] = e.target.value; // add the new submission
-    this.setState({ credit: updatedCredit }); // Update state with object values
+    const updatedCredit = { ...this.state.credits }; // Create an object for state
+    updatedCredit[e.target.name] = e.target.value;
+    updatedCredit["date"] = new Date().toISOString(); // add the new submission
+    this.setState({ credits: updatedCredit }); // Update state with object values
   };
 
   // When user clicked submit button, store debit data
   handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.addCredits(this.state.credit); // Update state in the top-level component (App.js)
+    e.preventDefault(); // set submission date to current date
+    this.props.addCredits(this.state.credits); // Update state in the top-level component (App.js)
   };
   render() {
     return (
@@ -49,7 +50,7 @@ class Credit extends Component {
         <h1>Credits</h1>
         {this.creditsView()}
 
-        <form onSubmit={this.props.addCredits}>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             name="description"
@@ -58,11 +59,19 @@ class Credit extends Component {
             onChange={this.handleChange}
           />
           <br />
-          <input type="number" name="amount" placeholder="Amount in $" />
-          <input type="date" name="date" placeholder="Date" />
-          <button type="submit" onClick={this.handleSubmit}>
-            Add Credit
-          </button>
+          <input
+            type="number"
+            name="amount"
+            placeholder="Amount in $"
+            onChange={this.handleChange}
+          />
+          <input
+            type="date"
+            name="date"
+            placeholder="Date"
+            onChange={this.handleChange}
+          />
+          <button type="submit">Add Credit</button>
         </form>
         <br />
         <Link to="/">Return to Home</Link>
