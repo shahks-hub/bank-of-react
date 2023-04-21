@@ -1,9 +1,26 @@
-# bank-of-react-example-code-gh-pages
-This repository is the starter code for Assignment 4 - Bank of React.
+# Bank of React
+This is our first assignment that uses the React app. This app includes the fundamentals such as components, props, and routes to different webpages which will be used in the final project as well. We were responsible for implementing the credits and debits pages.
 
-### Live Link 
+  [Anthony John Regner <i>(A278PlusPi)</i>](https://github.com/A278PlusPi)<br/>
+  Was responsible for testing the app's functionalities
+  <br/>
+  
+  [Hazel Pham <i>(hazelhpham)</i>](https://github.com/hazelhpham/)<br/>
+  Was responsible for the credits page
+  <br/>
+  
+  [Kasaf Shah <i>(shahks-hub)</i>](https://github.com/shahks-hub/)<br/>
+  Was responsible for implementing the app into GitHub pages
+  <br/>
+  
+  [Rhoenz Fermin <i>(rhoenz-fe)</i>](https://github.com/rhoenz-fe)<br/>
+  Was responsible for debits page
+  <br/>
+
+### Live Link (coming soon)
 [Website link](https://johnnylaicode.github.io/bank-of-react-example-code-gh-pages/)
 
+## Other information
 ----------
 ### 1. Use the following process to ***import*** the Assignment 4 starter code repository to your GitHub account as your starter codebase
 1.	Log on to GitHub
