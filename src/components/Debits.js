@@ -5,6 +5,7 @@ The Debits component contains information for Debits page view.
 Note: You need to work on this file for the Assignment.
 ==================================================*/
 import React, {Component} from 'react'
+import AccountBalance from './AccountBalance';
 import {Link} from 'react-router-dom';
 
 class DebitExpense extends Component{
@@ -49,10 +50,9 @@ class DebitExpense extends Component{
         <h1>Debits</h1>
 
         {this.debitsView()}
-        <h3> 
-        Balance: {this.props.accountBalance}
-        </h3>
-
+       
+        <AccountBalance accountBalance={this.props.accountBalance} />
+        
         <form onSubmit={this.handleSubmit}>
           <input type="text" name="description" placeholder='Description' style={{width:"350px"}} onChange={this.handleChange}/>
           <br/>

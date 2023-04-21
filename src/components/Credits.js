@@ -5,6 +5,7 @@ The Credits component contains information for Credits page view.
 Note: You need to work on this file for the Assignment.
 ==================================================*/
 import React, { Component } from "react";
+import AccountBalance from './AccountBalance';
 import { Link } from "react-router-dom";
 class Credit extends Component {
   constructor() {
@@ -49,6 +50,8 @@ class Credit extends Component {
       <div>
         <h1>Credits</h1>
         {this.creditsView()}
+        
+        <AccountBalance accountBalance={this.props.accountBalance} />
 
         <form onSubmit={this.handleSubmit}>
           <input
