@@ -49,9 +49,8 @@ class Credit extends Component {
     return (
       <div>
         <h1>Credits</h1>
+        <AccountBalance accountBalance={this.props.accountBalance}/>
         {this.creditsView()}
-        
-        <AccountBalance accountBalance={this.props.accountBalance} />
 
         <form onSubmit={this.handleSubmit}>
           <input
@@ -68,12 +67,6 @@ class Credit extends Component {
             name="amount"
             placeholder="Amount in $"
             title="Please enter the $ amount up to two decimal places."
-            onChange={this.handleChange}
-          />
-          <input
-            type="date"
-            name="date"
-            placeholder="Date"
             onChange={this.handleChange}
           />
           <button type="submit">Add Credit</button>

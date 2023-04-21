@@ -108,10 +108,10 @@ class App extends Component {
       <LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />
     );
     const CreditsComponent = () => (
-      <Credits credits={this.state.creditList} addCredits={this.addCredits} />
+      <Credits credits={this.state.creditList} addCredits={this.addCredits} accountBalance={this.state.accountBalance} />
     );
     const DebitsComponent = () => (
-      <Debits addDebit={this.addDebit} debits={this.state.debitList} />
+      <Debits addDebit={this.addDebit} debits={this.state.debitList} accountBalance={this.state.accountBalance} />
     );
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages

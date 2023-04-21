@@ -47,12 +47,11 @@ class DebitExpense extends Component{
   render(){
     return (
       <div>
-        <h1>Debits</h1>
+        <h1>Debits</h1>        
+        <AccountBalance accountBalance={this.props.accountBalance}/>
 
         {this.debitsView()}
-       
-        <AccountBalance accountBalance={this.props.accountBalance} />
-        
+
         <form onSubmit={this.handleSubmit}>
           <input type="text" name="description" placeholder='Description' style={{width:"350px"}} onChange={this.handleChange}/>
           <br/>
